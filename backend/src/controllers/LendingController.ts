@@ -5,6 +5,7 @@ import { ReaderModel } from '../models/Reader';
 import { addDays } from 'date-fns';
 import { APIError } from '../error/APIError';
 import mongoose from "mongoose";
+import {sendOverdueEmail} from "../util/email";
 
 // Lend a book to a reader
 export const lendBook = async (req: Request, res: Response) => {
@@ -33,7 +34,7 @@ export const lendBook = async (req: Request, res: Response) => {
             readerId,
             bookId,
             borrowedDate: new Date(),
-            dueDate: addDays(new Date(), 14), // Due in 2 weeks
+            dueDate: addDays(new Date(), 1), // Due in 2 weeks
             isReturned: false,
         });
 
@@ -110,5 +111,77 @@ export const getOverdueBooks = async (req: Request, res: Response) => {
         res.json(overdueLendings);
     } catch (error) {
         throw error;
+    }
+}
+
+export const notifyOverdueBooks = async (req: Request, res: Response) => {
+    try {
+        // Get overdue lendings
+        const overdueLendings = await LendingModel.find({
+            isReturned: false,
+            dueDate: { $lt: new Date() },
+        })
+            .populate({
+                path: 'readerId',
+                select: 'name email',
+                match: { name: { $exists: true, $ne: '' }, email: { $exists: true, $ne: '' } },
+            })
+            .populate('bookId', 'title author');
+
+        if (overdueLendings.length === 0) {
+            return res.json({ message: 'No overdue books found' });
+        }
+
+        // Group lendings by reader
+        const readerLendings: { [key: string]: { reader: { name: string; email: string }; lendings: any[] } } = {};
+        for (const lending of overdueLendings) {
+            // Check if readerId and bookId are populated and valid
+            if (!lending.readerId || !('name' in lending.readerId) || !('email' in lending.readerId)) {
+                console.warn(`Skipping lending record ${lending._id}: Invalid or missing reader data - readerId: ${lending.readerId}`);
+                continue;
+            }
+            if (!lending.bookId || !('title' in lending.bookId) || !('author' in lending.bookId)) {
+                console.warn(`Skipping lending record ${lending._id}: Invalid or missing book data`);
+                continue;
+            }
+
+            // Type casting to ensure TypeScript compatibility
+            const reader = lending.readerId as { _id: mongoose.Types.ObjectId; name: string; email: string };
+            const readerId = reader._id.toString();
+
+            if (!readerLendings[readerId]) {
+                readerLendings[readerId] = {
+                    reader: {
+                        name: reader.name || 'Unknown',
+                        email: reader.email || 'no-email@example.com',
+                    },
+                    lendings: [],
+                };
+            }
+            readerLendings[readerId].lendings.push(lending);
+        }
+
+        // Check if there are valid readers to notify
+        if (Object.keys(readerLendings).length === 0) {
+            return res.json({ message: 'No valid readers found for overdue notifications' });
+        }
+
+        // Send emails to each reader
+        const emailResults = [];
+        for (const readerId in readerLendings) {
+            const { reader, lendings } = readerLendings[readerId];
+            try {
+                const result = await sendOverdueEmail(reader, lendings);
+                emailResults.push(result);
+            } catch (emailError) {
+                console.error(`Failed to send email to ${reader.email}:`, emailError);
+                emailResults.push({ success: false, message: `Failed to send email to ${reader.email}` });
+            }
+        }
+
+        res.json({ message: 'Notifications processed', results: emailResults });
+    } catch (error) {
+        console.error('Error in notifyOverdueBooks:', error);
+        throw new APIError(500, `Failed to process overdue notifications`);
     }
 };

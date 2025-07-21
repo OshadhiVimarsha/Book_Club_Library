@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 type Lending = {
-    bookId: string;
-    readerId: string;
+    bookId: mongoose.Schema.Types.ObjectId;
+    readerId: mongoose.Types.ObjectId;
     borrowedDate: Date;
     dueDate: Date;
     isReturned: boolean;
@@ -11,12 +11,12 @@ type Lending = {
 
 const lendingSchema = new mongoose.Schema<Lending>({
     bookId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
         required: true
     },
     readerId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Reader",
         required: true
     },
