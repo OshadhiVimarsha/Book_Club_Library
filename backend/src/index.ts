@@ -33,7 +33,6 @@ connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Connected to DB, http://localhost:${PORT}`);
     });
-
 })
 
 
