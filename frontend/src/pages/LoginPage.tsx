@@ -75,7 +75,7 @@ const Login = () => {
           }}
       >
         <div className="flex bg-white bg-opacity-50 w-full h-full items-center">
-          {/* Left side - Welcome text */}
+
           <div className="w-1/2 text-black px-35 space-y-4">
             <h2 className="text-2xl font-bold">WELCOME</h2>
             <h1 className="text-4xl font-extrabold">BOOK CLUB LIBRARY</h1>
@@ -84,12 +84,11 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Right side - Login form */}
           <div className="w-1/2 bg-white bg-opacity-90 p-10 rounded-xl shadow-xl max-w-md mx-auto">
             <h2 className="text-2xl font-bold text-center text-gray-800">Sign In</h2>
 
             <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
-              {/* Email */}
+
               <div>
                 <label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Username
@@ -106,7 +105,7 @@ const Login = () => {
                 {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
               </div>
 
-              {/* Password */}
+
               <div>
                 <label htmlFor="password" className="text-sm font-medium text-gray-700">
                   Password
@@ -128,7 +127,7 @@ const Login = () => {
                 {errors.password && <p className="text-xs text-indigo-500">{errors.password}</p>}
               </div>
 
-              {/* Submit button */}
+
               <button
                   type="submit"
                   disabled={isLoading}

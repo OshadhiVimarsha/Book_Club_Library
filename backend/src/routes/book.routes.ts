@@ -10,8 +10,8 @@ import {
 
 const bookRouter = Router()
 
-bookRouter.post("/save", saveBook);
-bookRouter.get("/get", getBooks);
+bookRouter.post("/", saveBook);
+bookRouter.get("/", getBooks);
 bookRouter.get("/:id", getBookById);
 bookRouter.delete("/:id", deleteBook);
 bookRouter.put("/:id", updateBook);

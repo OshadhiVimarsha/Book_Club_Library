@@ -99,11 +99,11 @@ const Signup = () => {
       <div
           className="min-h-screen flex items-center justify-center bg-cover bg-center"
           style={{
-            backgroundImage: `url('')`, // put your background image url here if needed
+            backgroundImage: `url('')`,
           }}
       >
         <div className="flex bg-white bg-opacity-50 w-full h-full items-center">
-          {/* Left side - Welcome text */}
+
           <div className="w-1/2 text-black px-35 space-y-4">
             <h2 className="text-2xl font-bold">WELCOME</h2>
             <h1 className="text-4xl font-extrabold">BOOK CLUB LIBRARY</h1>
@@ -112,14 +112,14 @@ const Signup = () => {
             </p>
           </div>
 
-          {/* Right side - Signup form */}
+
           <div className="w-1/2 bg-white bg-opacity-90 p-10 rounded-xl shadow-xl max-w-md mx-auto">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
               Create Account
             </h2>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {/* Name */}
+
               <div>
                 <label
                     htmlFor="name"
@@ -143,7 +143,6 @@ const Signup = () => {
                 )}
               </div>
 
-              {/* Email */}
               <div>
                 <label
                     htmlFor="email"
@@ -167,7 +166,6 @@ const Signup = () => {
                 )}
               </div>
 
-              {/* Password */}
               <div>
                 <label
                     htmlFor="password"
@@ -191,7 +189,6 @@ const Signup = () => {
                 )}
               </div>
 
-              {/* Confirm Password */}
               <div>
                 <label
                     htmlFor="confirmPassword"
@@ -217,7 +214,6 @@ const Signup = () => {
                 )}
               </div>
 
-              {/* Submit Button */}
               <button
                   type="submit"
                   disabled={isLoading}

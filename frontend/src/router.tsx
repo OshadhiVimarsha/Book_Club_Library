@@ -4,7 +4,7 @@ import Login from "./pages/LoginPage"
 import Signup from "./pages/SignUpPage"
 import AdminRoutes from "./pages/AdminRoutes"
 import Dashboard from "./pages/Dashboard"
-import CustomersPage from "./pages/CustomersPage"
+import BooksPage from "./pages/BookPage.tsx"
 import ItemsPage from "./pages/ItemsPage"
 import OrdersPage from "./pages/OrdersPage"
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <AdminRoutes />,
         children: [
           { path: "/dashboard", element: <Dashboard /> },
-          { path: "/dashboard/customers", element: <CustomersPage /> },
+          { path: "/dashboard/books", element: <BooksPage /> },
           { path: "/dashboard/items", element: <ItemsPage /> },
           { path: "/dashboard/orders", element: <OrdersPage /> },
         ],
