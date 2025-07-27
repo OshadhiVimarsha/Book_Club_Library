@@ -76,9 +76,6 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSubmit }) => {
           onSubmit={handleSubmit}
           className="bg-white shadow-lg rounded-xl p-6 space-y-6 max-w-2xl mx-auto"
       >
-        <h2 className="text-2xl font-semibold text-gray-800">
-          {book ? "Update Book" : "Add a New Book"}
-        </h2>
 
         {/* Title */}
         <div>
@@ -94,7 +91,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSubmit }) => {
               className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                   errors.title ? "border-red-400" : "border-gray-300"
               }`}
-              placeholder="E.g., Atomic Habits"
+              placeholder="Title"
           />
           {errors.title && <p className="text-sm text-red-600 mt-1">{errors.title}</p>}
         </div>
@@ -113,7 +110,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSubmit }) => {
               className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                   errors.author ? "border-red-400" : "border-gray-300"
               }`}
-              placeholder="E.g., James Clear"
+              placeholder="Author"
           />
           {errors.author && <p className="text-sm text-red-600 mt-1">{errors.author}</p>}
         </div>
@@ -151,7 +148,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSubmit }) => {
               className={`w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                   errors.language ? "border-red-400" : "border-gray-300"
               }`}
-              placeholder="E.g., English"
+              placeholder="Language"
           />
           {errors.language && <p className="text-sm text-red-600 mt-1">{errors.language}</p>}
         </div>

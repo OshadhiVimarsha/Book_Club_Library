@@ -4,8 +4,8 @@ import {deleteReader, getReader, getReaderById, saveReader, updateReader} from "
 
 const readerRouter = Router()
 
-readerRouter.post("/save", saveReader);
-readerRouter.get("/get", getReader);
+readerRouter.post("/", saveReader);
+readerRouter.get("/", getReader);
 readerRouter.get("/:id", getReaderById);
 readerRouter.delete("/:id", deleteReader);
 readerRouter.put("/:id", updateReader);
