@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     console.log("Current Path:", currentPath)
                     router.navigate("/dashboard")
                 }
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
             } catch (error) {
                 setAccessToken("")
                 setIsLoggedIn(false)

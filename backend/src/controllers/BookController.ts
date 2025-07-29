@@ -71,8 +71,6 @@ export const updateBook = async (
     try {
         const updateBook = await BookModel.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
-            // If true -> return the update customer
-            // If false -> return the old customer
             runValidators: true,
         })
         if (!updateBook) {

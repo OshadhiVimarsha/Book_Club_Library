@@ -5,7 +5,7 @@ const USER_API_URL = `${BASE_URL}/auth`;
 
 export interface LoginResponse {
     name: string
-    accessToken: string // add access token as well
+    accessToken: string
     email: string
     _id: string
 }
@@ -24,19 +24,16 @@ export interface RefreshTokenResponse {
     accessToken: string
 }
 
-// Sign up a new user
 export const signup = async (data: SignupData): Promise<SignUpResponse> => {
     const response = await apiClient.post(`${USER_API_URL}/signup`, data);
     return response.data;
 };
 
-// Log in an existing user
 export const login = async (data: LoginData): Promise<LoginResponse> => {
     const response = await apiClient.post(`${USER_API_URL}/login`, data);
     return response.data;
 };
 
-// Optionally, add a logout function (frontend only)
 export const logout = async (): Promise<LogoutResponse> => {
     const response = await apiClient.post(`${USER_API_URL}/logout`)
     return response.data

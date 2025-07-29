@@ -1,7 +1,6 @@
-import {NextFunction} from "express";
+import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import {Request, Response} from "express";
-import {APIError} from "../error/APIError";
+import { APIError } from "../error/APIError";
 
 export const errorHandler = (
     error: any,
@@ -9,13 +8,18 @@ export const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
+    if (res.headersSent) {
+        return next(error); // Prevent duplicate send
+    }
+
     if (error instanceof mongoose.Error) {
-        res.status(400).json({message: error.message})
-        return
+        return res.status(400).json({ message: error.message });
     }
 
     if (error instanceof APIError) {
-        res.status(500).json({message: error.message})
+        return res.status(error.status || 500).json({ message: error.message });
     }
-    res.status(500).json({message: "Internal Server Error"})
-}
+
+    console.error("Unhandled Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+};

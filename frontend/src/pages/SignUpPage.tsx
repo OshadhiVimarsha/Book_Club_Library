@@ -97,34 +97,27 @@ const Signup = () => {
 
   return (
       <div
-          className="min-h-screen flex items-center justify-center bg-cover bg-center"
+          className="min-h-screen flex items-center justify-center bg-cover bg-center bg-gray-100"
           style={{
             backgroundImage: `url('')`,
           }}
       >
-        <div className="flex bg-white bg-opacity-50 w-full h-full items-center">
-
-          <div className="w-1/2 text-black px-35 space-y-4">
+        <div className="flex flex-col md:flex-row bg-opacity-90 w-full max-w-6xl mx-auto overflow-hidden">
+          <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-center text-black p-10 space-y-4 bg-opacity-50">
             <h2 className="text-2xl font-bold">WELCOME</h2>
             <h1 className="text-4xl font-extrabold">BOOK CLUB LIBRARY</h1>
-            <p className="text-sm">
-              Your journey begins with the best books.
-            </p>
+            <p className="text-sm">Your journey begins with the best books.</p>
           </div>
 
-
-          <div className="w-1/2 bg-white bg-opacity-90 p-10 rounded-xl shadow-xl max-w-md mx-auto">
+          <div className="w-full md:w-1/2 p-8">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
               Create Account
             </h2>
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-
+              {/* Name */}
               <div>
-                <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Full Name
                 </label>
                 <input
@@ -138,16 +131,12 @@ const Signup = () => {
                         errors.name ? "border-red-400" : "border-gray-300"
                     } rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
-                {errors.name && (
-                    <p className="text-xs text-red-500 mt-1">{errors.name}</p>
-                )}
+                {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
               </div>
 
+              {/* Email */}
               <div>
-                <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email
                 </label>
                 <input
@@ -161,16 +150,12 @@ const Signup = () => {
                         errors.email ? "border-red-400" : "border-gray-300"
                     } rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
-                {errors.email && (
-                    <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
               </div>
 
+              {/* Password */}
               <div>
-                <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
                 <input
@@ -184,16 +169,12 @@ const Signup = () => {
                         errors.password ? "border-red-400" : "border-gray-300"
                     } rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
-                {errors.password && (
-                    <p className="text-xs text-red-500 mt-1">{errors.password}</p>
-                )}
+                {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
               </div>
 
+              {/* Confirm Password */}
               <div>
-                <label
-                    htmlFor="confirmPassword"
-                    className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm Password
                 </label>
                 <input
@@ -208,26 +189,21 @@ const Signup = () => {
                     } rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500`}
                 />
                 {errors.confirmPassword && (
-                    <p className="text-xs text-red-500 mt-1">
-                      {errors.confirmPassword}
-                    </p>
+                    <p className="text-xs text-red-500 mt-1">{errors.confirmPassword}</p>
                 )}
               </div>
 
               <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition duration-150"
               >
                 {isLoading ? "Creating account..." : "CREATE"}
               </button>
 
               <p className="text-sm text-center text-gray-600 mt-4">
                 Already have an account?{" "}
-                <Link
-                    to="/login"
-                    className="text-indigo-600 hover:underline font-medium"
-                >
+                <Link to="/login" className="text-indigo-600 hover:underline font-medium">
                   Sign in
                 </Link>
               </p>

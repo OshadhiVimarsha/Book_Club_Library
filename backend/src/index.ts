@@ -29,6 +29,7 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Hello World!");
 });
 
+
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`Connected to DB, http://localhost:${PORT}`);
